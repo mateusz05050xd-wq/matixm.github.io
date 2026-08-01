@@ -3,604 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekrutacja | Oficjalny Serwer Minecraft</title>
+    <title>Kaczkowo - Oficjalna Strona</title>
+    <!-- Fonty z Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Ikony z FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --bg-main: #141518;
-            --bg-card: #1c1d22;
-            --bg-input: #25262b;
-            --accent: #00b0ff;
-            --accent-glow: rgba(0, 176, 255, 0.4);
-            --text-main: #f1f3f5;
-            --text-muted: #9aa0a6;
-            --success: #2ecc71;
-            --danger: #e74c3c;
-            --warning: #f1c40f;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+            --bg-dark: #121212;
+            --bg-card: #1c1c1c;
+            --accent: #ffcc00;
+            --accent-hover: #e6b800;
+            --text-light: #ffffff;
+            --text-dark: #000000;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #ffde00 0%, #ffaa00 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-image: radial-gradient(circle at 50% 10%, #1e293b 0%, var(--bg-main) 70%);
+            color: var(--text-light);
         }
 
-        header {
-            background: rgba(28, 29, 34, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 20px 40px;
+        /* --- NAWIGACJA (GÓRA) --- */
+        .navbar {
+            background-color: var(--bg-dark);
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        header h1 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: linear-gradient(45deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo-nav {
+            font-family: 'Lilita One', cursive;
+            color: var(--accent);
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .admin-trigger {
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
             background: transparent;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
-            transition: all 0.2s;
-        }
-        .admin-trigger:hover {
-            color: #fff;
-            border-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
         }
 
-        .container {
-            max-width: 850px;
-            margin: 50px auto;
-            width: 100%;
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn.active {
+            background: var(--accent);
+            color: var(--text-dark);
+        }
+
+        .welcome-badge {
+            background: var(--accent);
+            color: var(--text-dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* --- SEKCJA GŁÓWNA (HERO) --- */
+        .hero {
+            text-align: center;
+            padding: 50px 20px 30px;
+            position: relative;
+        }
+
+        .main-duck-icon {
+            font-size: 120px;
+            line-height: 1;
+            margin-bottom: -10px;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+        }
+
+        .hero h1 {
+            font-family: 'Lilita One', cursive;
+            font-size: 110px;
+            margin: 0;
+            color: var(--accent);
+            /* Efekt pogrubienia obramowania i cienia jak na zdjęciu */
+            -webkit-text-stroke: 4px var(--bg-dark);
+            text-shadow: 0px 10px 0px var(--bg-dark);
+            letter-spacing: 5px;
+            line-height: 1.1;
+        }
+
+        .siema-badge {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            font-weight: 700;
+            font-size: 24px;
+            padding: 5px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: -15px;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 2px;
+        }
+        
+        /* Dekoracyjne paski obok SIEMA */
+        .siema-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .lines { font-size: 24px; font-weight: bold; color: var(--bg-dark); }
+
+        .hero p {
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: 600;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* --- KARTY --- */
+        .cards-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: flex;
+            gap: 25px;
             padding: 0 20px;
-            flex: 1;
-        }
-
-        .view { display: none; }
-        .view.active { display: block; animation: slideUp 0.4s ease-out; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 35px;
+            background: rgba(255,255,255,0.05);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
         }
 
         .card h2 {
-            font-size: 1.8rem;
-            text-align: center;
-            margin-bottom: 30px;
-            color: #fff;
+            font-size: 22px;
+            margin: 0;
+            color: var(--accent);
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #ced4da;
-            font-size: 0.95rem;
+        .card p {
+            font-size: 14px;
+            color: #d1d1d1;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
-        input, textarea, select {
-            width: 100%;
-            padding: 14px;
-            background: var(--bg-input);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 8px;
-            color: #fff;
-            outline: none;
-            font-size: 1rem;
-            margin-bottom: 24px;
-            transition: all 0.2s;
-        }
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 8px rgba(0, 176, 255, 0.2);
-        }
-
-        .btn-premium {
-            width: 100%;
-            background: linear-gradient(135deg, var(--accent), #0088cc);
-            color: #fff;
+        .action-btn {
+            background: var(--accent);
+            color: var(--text-dark);
             border: none;
-            padding: 16px;
-            font-size: 1.1rem;
+            padding: 12px 20px;
+            border-radius: 10px;
             font-weight: 700;
-            border-radius: 8px;
+            font-size: 14px;
             cursor: pointer;
-            box-shadow: 0 4px 15px var(--accent-glow);
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 176, 255, 0.6);
-        }
-
-        /* Siatka rang na bazie podanego zdjęcia */
-        .rank-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-        }
-
-        .rank-box {
-            background: var(--bg-input);
-            padding: 20px;
-            border-radius: 8px;
+            transition: 0.3s;
             text-align: center;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-        }
-        .rank-box:hover {
-            transform: translateY(-4px);
-            background: #2c2e35;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        /* Kolory rang z obrazka image_9b3888.png */
-        .r-headadmin { border-bottom: 3px solid #e67e22; color: #e67e22; }
-        .r-technik { border-bottom: 3px solid #9b59b6; color: #9b59b6; }
-        .r-rekrutator { border-bottom: 3px solid #3498db; color: #3498db; }
-        .r-grafik { border-bottom: 3px solid #9b59b6; color: #9b59b6; }
-        .r-admin { border-bottom: 3px solid #e74c3c; color: #e74c3c; }
-        .r-moderator { border-bottom: 3px solid #2ecc71; color: #2ecc71; }
-        .r-helper { border-bottom: 3px solid #3498db; color: #3498db; }
-        .r-chatmod { border-bottom: 3px solid #2ecc71; color: #2ecc71; }
-        .r-budowniczy { border-bottom: 3px solid #e67e22; color: #e67e22; }
-        .r-przyjaciel { border-bottom: 3px solid #e84393; color: #e84393; }
-        .r-tworca { border-bottom: 3px solid #e84393; color: #e84393; }
-
-        .quiz-option {
-            background: var(--bg-input);
-            padding: 14px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.2s;
+        .action-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
         }
-        .quiz-option:hover { background: #2d3037; border-color: var(--accent); }
-        .quiz-option.selected { background: var(--accent); color: #fff; font-weight: bold; }
 
-        .back-link { color: var(--text-muted); cursor: pointer; display: inline-block; margin-bottom: 20px; font-size: 0.9rem; }
-        .back-link:hover { color: #fff; }
+        /* --- BANER DOLNY --- */
+        .bottom-banner {
+            background: var(--bg-card);
+            max-width: 1160px;
+            margin: 0 auto 50px;
+            border-radius: 20px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
 
-        /* Panel Admina */
-        .admin-flex { display: flex; gap: 20px; margin-top: 20px; }
-        .admin-sidebar { width: 250px; background: var(--bg-input); padding: 15px; border-radius: 8px; }
-        .admin-main { flex: 1; background: var(--bg-input); padding: 25px; border-radius: 8px; }
-        .sidebar-btn { width: 100%; padding: 12px; background: transparent; border: none; text-align: left; color: #fff; cursor: pointer; border-radius: 4px; margin-bottom: 5px; font-weight: 600;}
-        .sidebar-btn.active, .sidebar-btn:hover { background: rgba(255,255,255,0.05); color: var(--accent); }
+        .banner-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-        .data-card { background: var(--bg-card); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
-        .data-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
-        .badge-pass { background: rgba(46, 204, 113, 0.2); color: var(--success); }
-        .badge-fail { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
+        .banner-ducks {
+            font-size: 50px;
+        }
+
+        .banner-text h2 {
+            color: var(--accent);
+            margin: 0 0 5px 0;
+            font-size: 24px;
+        }
+
+        .banner-text p {
+            margin: 0;
+            color: #d1d1d1;
+            font-size: 16px;
+        }
+        
+        .subscribe-btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>💎 CraftCore - Rekrutacja Ekipy</h1>
-        <button class="admin-trigger" onclick="openAdminLogin()">Panel Zarządzania</button>
+    <!-- NAWIGACJA -->
+    <nav class="navbar">
+        <div class="logo-nav">🦆 KACZKOWO</div>
+        <div class="nav-links">
+            <a href="#" class="nav-btn active"><i class="fas fa-home"></i> GŁÓWNA</a>
+            <button onclick="checkPassword()" class="nav-btn"><i class="far fa-calendar-alt"></i> PLAN NAGRYWEK</button>
+            <button onclick="openAI()" class="nav-btn"><i class="fas fa-robot"></i> AI KACZKOWO</button>
+        </div>
+        <div class="welcome-badge">Witaj w Kaczkowie! 🦆</div>
+    </nav>
+
+    <!-- GŁÓWNA SEKCJA -->
+    <header class="hero">
+        <div class="main-duck-icon">🦆😎</div> <!-- Emoji jako zastępstwo dla grafiki ze zdjęcia -->
+        <h1>KACZKOWO</h1>
+        <div class="siema-wrapper">
+            <span class="lines">≡</span>
+            <div class="siema-badge">SIEMA!</div>
+            <span class="lines">≡</span>
+        </div>
+        <p>Witaj w Kaczkowie – miejscu pełnym dobrej energii, śmiechu i świetnych ludzi!<br>Tutaj każda kaczka jest wyjątkowa!</p>
     </header>
 
-    <div class="container">
-
-        <!-- KROK 1: WPISZ NICK -->
-        <div id="view-start" class="view active">
-            <div class="card" style="max-width: 550px; margin: 0 auto;">
-                <h2>Dołącz do Naszej Ekipy</h2>
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">Wpisz swój dokładny nick z Discorda, aby system zweryfikował Twoje uprawnienia do testu.</p>
-                <label>Twój Nick z Discorda:</label>
-                <input type="text" id="player-nick" placeholder="np. Bladex lub bladex#1234">
-                <button class="btn-premium" onclick="verifyPlayer()">Rozpocznij Rekrutację</button>
-            </div>
-        </div>
-
-        <!-- EKRAN BLOKADY -->
-        <div id="view-banned" class="view">
-            <div class="card" style="max-width: 550px; margin: 0 auto; text-align: center; border: 2px solid var(--danger);">
-                <h2 style="color: var(--danger);">Dostęp Zablokowany</h2>
-                <p style="margin: 20px 0; line-height: 1.6;">Twój nick został wpisany na czarną listę rekrutacyjną z powodu niezdania testu wiedzy na wymaganym poziomie (min. 67%) lub decyzji właściciela.</p>
-                <p style="color: var(--text-muted);">Możesz odwołać się u Właściciela serwera.</p>
-            </div>
-        </div>
-
-        <!-- KROK 2: WYBÓR RANGI -->
-        <div id="view-ranks" class="view">
-            <div class="card">
-                <span class="back-link" onclick="showView('view-start')">← Zmień Nick</span>
-                <h2>Wybierz Stanowisko</h2>
-                <div class="rank-grid">
-                    <div class="rank-box r-headadmin" onclick="chooseRank('HeadAdmin')">👑 HEADADMIN</div>
-                    <div class="rank-box r-technik" onclick="chooseRank('Technik')">🔧 TECHNIK</div>
-                    <div class="rank-box r-rekrutator" onclick="chooseRank('Rekrutator')">📋 REKRUTATOR</div>
-                    <div class="rank-box r-grafik" onclick="chooseRank('Grafik')">🖼️ GRAFIK</div>
-                    <div class="rank-box r-admin" onclick="chooseRank('Admin')">🔴 ADMIN</div>
-                    <div class="rank-box r-moderator" onclick="chooseRank('Moderator')">🟢 MODERATOR</div>
-                    <div class="rank-box r-helper" onclick="chooseRank('Helper')">🔵 HELPER</div>
-                    <div class="rank-box r-chatmod" onclick="chooseRank('ChatMod')">💬 CHATMOD</div>
-                    <div class="rank-box r-budowniczy" onclick="chooseRank('Budowniczy')">🏗️ BUDOWNICZY</div>
-                    <div class="rank-box r-przyjaciel" onclick="chooseRank('Przyjaciel')">💖 PRZYJACIEL</div>
-                    <div class="rank-box r-tworca" onclick="chooseRank('Twórca')">🎨 TWÓRCA</div>
+    <!-- KARTY INFO -->
+    <section class="cards-container">
+        <!-- Karta 1 -->
+        <div class="card">
+            <div>
+                <div class="card-header">
+                    <div class="card-icon">🦆</div>
+                    <h2>O KACZKOWIE</h2>
                 </div>
+                <p>Kaczkowo to jest świat, który pokazuje survival na naszym internecie, który po prostu powoduje uśmiech na twarzach! Zapraszamy do oglądania na naszym kanale.</p>
             </div>
+            <a href="https://youtube.com/@frako_-kaczkowo?si=GFPnNCJqnxUg4rm2" target="_blank" class="action-btn">DOŁĄCZ DO KACZEK! ></a>
         </div>
 
-        <!-- KROK 3: KWESTIONARIUSZ + TEST -->
-        <div id="view-form" class="view">
-            <div class="card">
-                <span class="back-link" onclick="showView('view-ranks')">← Zmień Rangę</span>
-                <h2 id="form-header">Formularz Aplikacyjny</h2>
-                
-                <form id="rec-form" onsubmit="processApplication(event)">
-                    <label>Ile masz lat?</label>
-                    <input type="number" id="form-age" placeholder="Wiek" required min="10" max="99">
-
-                    <label>Czy posiadasz w pełni sprawny mikrofon?</label>
-                    <select id="form-mic">
-                        <option value="Tak">Tak, posiadam sprawny mikrofon</option>
-                        <option value="Nie">Nie posiadam</option>
-                    </select>
-
-                    <label>Napisz kilka zdań o sobie i swoim doświadczeniu w Minecraft:</label>
-                    <textarea id="form-about" rows="4" placeholder="Napisz coś schludnego..." required></textarea>
-
-                    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 30px 0; padding-top: 20px;">
-                        <h3 style="color: var(--warning); margin-bottom: 20px; text-align: center;">⚡ CZĘŚĆ TESTOWA (Wymagane min. 67% punktów)</h3>
-                        
-                        <div style="margin-bottom: 20px;">
-                            <label>1. Widzisz gracza, który ewidentnie lata i bije innych z dużej odległości (KillAura). Co robisz?</label>
-                            <div class="quiz-option" data-q="0" data-a="A">A) Zaczynam go wyzywać na czacie globalnym.</div>
-                            <div class="quiz-option" data-q="0" data-a="B">B) Natychmiast nagrywam krótki dowód i nakładam permanentną blokadę zgodnie z taryfikatorem.</div>
-                            <div class="quiz-option" data-q="0" data-a="C">C) Ignoruję sytuację, czekając na Admina.</div>
-                        </div>
-
-                        <div style="margin-bottom: 20px;">
-                            <label>2. Dwoje graczy ostro wyzywa się na czacie publicznym stosując wulgaryzmy. Jaka jest prawidłowa reakcja?</label>
-                            <div class="quiz-option" data-q="1" data-a="A">A) Daję im upomnienie/ostrzeżenie, a przy braku poprawy wyciszam (Mute) oboje na określony czas.</div>
-                            <div class="quiz-option" data-q="1" data-a="B">B) Banuję ich na zawsze bez ostrzeżenia.</div>
-                            <div class="quiz-option" data-q="1" data-a="C">C) Dołączam do dyskusji, aby ich uciszyć.</div>
-                        </div>
-
-                        <div style="margin-bottom: 20px;">
-                            <label>3. Czy jako członek administracji masz prawo dawać darmowe przedmioty swoim znajomym lub graczom?</label>
-                            <div class="quiz-option" data-q="2" data-a="A">A) Tak, jeśli nikt nie widzi.</div>
-                            <div class="quiz-option" data-q="2" data-a="B">B) Absolutnie nie. Jest to faworyzacja i grozi natychmiastowym wyrzuceniem z rangi.</div>
-                            <div class="quiz-option" data-q="2" data-a="C">C) Tylko przedmioty budowlane.</div>
-                        </div>
-
-                        <div style="margin-bottom: 20px;">
-                            <label>4. Gracz zgłasza, że jego działka/skrzynie zostały okradzione. Jakie narzędzie administratora wykorzystasz najpierw?</label>
-                            <div class="quiz-option" data-q="3" data-a="A">A) Wpiszę komendę banującą losowe osoby.</div>
-                            <div class="quiz-option" data-q="3" data-a="B">B) Użyję pluginu sprawdzającego logi bloków (np. CoreProtect /co i) na zniszczone miejsce.</div>
-                            <div class="quiz-option" data-q="3" data-a="C">C) Oddam mu rzeczy z trybu kreatywnego bez sprawdzania.</div>
-                        </div>
-
-                        <div style="margin-bottom: 20px;">
-                            <label>5. Ktoś prosi Cię o pomoc w sprawie błędu serwera, ale aktualnie grasz i świetnie się bawisz. Co robisz?</label>
-                            <div class="quiz-option" data-q="4" data-a="A">A) Piszę graczowi, żeby mi nie przeszkadzał.</div>
-                            <div class="quiz-option" data-q="4" data-a="B">B) Przerywam rozgrywkę, odpisuję kulturalnie i przystępuję do weryfikacji problemu gracza.</div>
-                            <div class="quiz-option" data-q="4" data-a="C">C) Udaję, że jestem AFK.</div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-premium">Wyślij i Zakończ Rekrutację</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- EKRANY KOŃCOWE DLA GRACZY -->
-        <div id="view-success" class="view">
-            <div class="card" style="text-align: center;">
-                <h2 style="color: var(--success); font-size: 2.2rem;">🎉 Gratulacje! Zdałeś Test!</h2>
-                <p style="margin: 20px 0; font-size: 1.1rem;" id="success-info"></p>
-                <p style="color: var(--text-muted);">Twoje podanie zostało pomyślnie przesłane globalnie. Właściciel sprawdzi je niebawem.</p>
-                <br><button class="btn-premium" style="max-width: 250px;" onclick="location.reload()">Strona Główna</button>
-            </div>
-        </div>
-
-        <div id="view-failed" class="view">
-            <div class="card" style="text-align: center; border: 1px solid var(--danger);">
-                <h2 style="color: var(--danger); font-size: 2.2rem;">❌ Rekrutacja Niezdana</h2>
-                <p style="margin: 20px 0; font-size: 1.1rem;" id="fail-info"></p>
-                <p style="color: var(--text-muted); line-height: 1.6;">Uzyskałeś wynik poniżej wymaganych 67%. Twoje zgłoszenie zostało automatycznie skasowane, a Twój nick na Discordzie został zablokowany do odwołania przez Właściciela.</p>
-                <br><button class="btn-premium" style="max-width: 250px; background: var(--danger);" onclick="location.reload()">Zamknij</button>
-            </div>
-        </div>
-
-        <!-- LOGOWANIE ADMINA -->
-        <div id="view-admin-login" class="view">
-            <div class="card" style="max-width: 500px; margin: 0 auto;">
-                <span class="back-link" onclick="location.reload()">← Strona Główna</span>
-                <h2>Logowanie Właściciela</h2>
-                <label>Wpisz tajne hasło:</label>
-                <input type="password" id="admin-pass-input" placeholder="Wpisz hasło...">
-                <button class="btn-premium" onclick="verifyAdminPassword()">Zaloguj się</button>
-                <p id="login-error" style="color: var(--danger); margin-top: 15px; display: none; font-weight: bold; text-align: center;">Błędne hasło!</p>
-            </div>
-        </div>
-
-        <!-- PANEL ADMINA GLOBALNY -->
-        <div id="view-admin-panel" class="view">
-            <div class="card" style="padding: 25px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
-                    <h2>Panel Administratora 🛠️</h2>
-                    <button class="admin-trigger" style="border-color: var(--danger); color: var(--danger);" onclick="location.reload()">Wyloguj</button>
+        <!-- Karta 2 -->
+        <div class="card">
+            <div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="far fa-calendar-alt" style="color: white;"></i></div>
+                    <h2>PLAN NAGRYWEK</h2>
                 </div>
-
-                <div class="admin-flex">
-                    <div class="admin-sidebar">
-                        <button class="sidebar-btn active" id="btn-tab-apps" onclick="switchTab('apps')">Podania Ekipy</button>
-                        <button class="sidebar-btn" id="btn-tab-bans" onclick="switchTab('bans')">Zablokowani Gracze</button>
-                    </div>
-                    
-                    <div class="admin-main">
-                        <!-- Zakładka Podania -->
-                        <div id="tab-apps">
-                            <h3 style="margin-bottom: 15px;">Nadesłane zgłoszenia (Zdały test):</h3>
-                            <div id="admin-apps-list">Ładowanie z chmury danych...</div>
-                        </div>
-                        
-                        <!-- Zakładka Blokady -->
-                        <div id="tab-bans" style="display: none;">
-                            <h3 style="margin-bottom: 15px;">Lista zablokowanych nicków:</h3>
-                            <div id="admin-bans-list">Ładowanie czarnej listy...</div>
-                        </div>
-                    </div>
-                </div>
+                <p>Sprawdź, kiedy lecą nowe filmy z Kaczkowa i innymi! Nie przegap żadnego materiału (Moduł na hasło).</p>
             </div>
+            <button onclick="checkPassword()" class="action-btn">ZOBACZ PLAN ></button>
         </div>
 
-    </div>
+        <!-- Karta 3 -->
+        <div class="card">
+            <div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-robot" style="color: white;"></i></div>
+                    <h2>AI KACZKOWO</h2>
+                </div>
+                <p>Porozmawiaj z naszym AI! Zadaj pytanie na podstawowe tematy z Kaczkowa i otrzymaj szybką odpowiedź!</p>
+            </div>
+            <button onclick="openAI()" class="action-btn">POROZMAWIAJ ></button>
+        </div>
+    </section>
 
+    <!-- DOLNY BANER YOUTUBE -->
+    <section class="bottom-banner">
+        <div class="banner-left">
+            <div class="banner-ducks">👑🦆 🧢🦆 😎🦆</div>
+            <div class="banner-text">
+                <h2>ZOSTAŃ KACZKĄ JUŻ DZIŚ!</h2>
+                <p>Subskrybuj, oglądaj i baw się razem z nami w Kaczkowie!</p>
+            </div>
+        </div>
+        <a href="https://youtube.com/@frako_-kaczkowo?si=GFPnNCJqnxUg4rm2" target="_blank" class="action-btn subscribe-btn">
+            SUBSKRYBUJ <i class="fas fa-bell"></i>
+        </a>
+    </section>
+
+    <!-- SKRYPTY LOGIKI (Plan nagrywek, AI) -->
     <script>
-        // GLOBALNY SYSTEM ZAPISU CHMUROWEGO (BEZ POTRZEBY STAWIANIA BOTA I SERWERA)
-        // Wykorzystujemy darmowy i bezpieczny, publiczny system magazynowania Key-Value
-        const DATABASE_URL = "https://kvdb.io/Mz6R77eNqGvEaLzXyKkW9a/craft_rec_v2_data";
-
-        let cloudData = { applications: [], bans: [] };
-        let selectedNick = "";
-        let selectedRank = "";
-        let quizAnswers = {};
-
-        // Klucz odpowiedzi do testu wiedzy
-        const correctAnswers = ["B", "A", "B", "B", "B"];
-
-        // Ładowanie bazy danych z chmury przy uruchomieniu
-        async function fetchCloudData() {
-            try {
-                let res = await fetch(DATABASE_URL);
-                if (res.ok) {
-                    cloudData = await res.json();
-                } else {
-                    // Jeśli baza jest pusta, wysyłamy inicjalizację
-                    await saveCloudData();
-                }
-            } catch (e) {
-                console.log("Inicjalizacja bazy danych chmury...");
-            }
-        }
-        fetchCloudData();
-
-        async function saveCloudData() {
-            try {
-                await fetch(DATABASE_URL, {
-                    method: "POST",
-                    body: JSON.stringify(cloudData)
-                });
-            } catch (e) {
-                console.error("Błąd zapisu w chmurze: ", e);
+        function checkPassword() {
+            let pass = prompt("Podaj hasło dostępu do Planu Nagrywek:");
+            if (pass === "Mateusz05050") {
+                alert("Hasło poprawne! ✅\n\nTutaj w przyszłości pojawi się wygenerowany Plan Nagrywek:\n1. Poniedziałek - Survival odcinek 1\n2. Środa - Budowa bazy\n3. Piątek - Kaczkowo Live");
+            } else if (pass !== null) {
+                alert("Błędne hasło! ❌ Dostęp do Planu Nagrywek zablokowany.");
             }
         }
 
-        function showView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-        }
-
-        // Obsługa wyboru odpowiedzi w teście
-        document.querySelectorAll('.quiz-option').forEach(element => {
-            element.addEventListener('click', function() {
-                const qIndex = this.getAttribute('data-q');
-                const answer = this.getAttribute('data-a');
-                
-                document.querySelectorAll(`.quiz-option[data-q="${qIndex}"]`).forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                
-                quizAnswers[qIndex] = answer;
-            });
-        });
-
-        // KROK 1: Weryfikacja nicku i czarnej listy
-        async function verifyPlayer() {
-            const nickInput = document.getElementById('player-nick').value.trim();
-            if(!nickInput) { alert("Wpisz swój nick z Discorda!"); return; }
-            
-            selectedNick = nickInput;
-            await fetchCloudData(); // Odśwież dane
-
-            // Sprawdzenie czy gracz ma bana
-            if(cloudData.bans.map(b => b.toLowerCase()).includes(selectedNick.toLowerCase())) {
-                showView('view-banned');
-            } else {
-                showView('view-ranks');
-            }
-        }
-
-        function chooseRank(rank) {
-            selectedRank = rank;
-            document.getElementById('form-header').innerText = `Aplikacja na rangę: ${rank.toUpperCase()}`;
-            showView('view-form');
-        }
-
-        // KROK 3: Przetwarzanie testu i formularza
-        async function processApplication(event) {
-            event.preventDefault();
-
-            // Walidacja czy gracz zaznaczył wszystkie odpowiedzi w teście
-            for(let i=0; i<5; i++) {
-                if(!quizAnswers[i]) {
-                    alert(`Odpowiedz na pytanie numer ${i+1} w części testowej!`);
-                    return;
-                }
-            }
-
-            // Liczenie procentów
-            let correctCount = 0;
-            for(let i=0; i<5; i++) {
-                if(quizAnswers[i] === correctAnswers[i]) correctCount++;
-            }
-            
-            let percentScore = Math.round((correctCount / 5) * 100);
-
-            if(percentScore >= 67) {
-                // ZDAŁ - Zapisujemy podanie do bazy chmurowej
-                const newApp = {
-                    nick: selectedNick,
-                    rank: selectedRank,
-                    age: document.getElementById('form-age').value,
-                    mic: document.getElementById('form-mic').value,
-                    about: document.getElementById('form-about').value,
-                    score: percentScore,
-                    date: new Date().toLocaleString('pl-PL')
-                };
-
-                cloudData.applications.push(newApp);
-                await saveCloudData();
-
-                document.getElementById('success-info').innerText = `Twój wynik testu to: ${percentScore}%`;
-                showView('view-success');
-            } else {
-                // NIE ZDAŁ - Automatyczna blokada kandydata i brak zapisu podania
-                cloudData.bans.push(selectedNick);
-                await saveCloudData();
-
-                document.getElementById('fail-info').innerText = `Twój wynik testu to: ${percentScore}% (Wymagane: 67%)`;
-                showView('view-failed');
-            }
-        }
-
-        // ------ LOGOWANIE I PANEL ADMINA ------
-        function openAdminLogin() {
-            showView('view-admin-login');
-        }
-
-        function verifyAdminPassword() {
-            const pass = document.getElementById('admin-pass-input').value;
-            if(pass === "BladexMC059867") {
-                showView('view-admin-panel');
-                loadAdminPanelData();
-            } else {
-                document.getElementById('login-error').style.display = "block";
-            }
-        }
-
-        function switchTab(tab) {
-            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
-            if(tab === 'apps') {
-                document.getElementById('btn-tab-apps').classList.add('active');
-                document.getElementById('tab-apps').style.display = 'block';
-                document.getElementById('tab-bans').style.display = 'none';
-            } else {
-                document.getElementById('btn-tab-bans').classList.add('active');
-                document.getElementById('tab-apps').style.display = 'none';
-                document.getElementById('tab-bans').style.display = 'block';
-            }
-        }
-
-        async function loadAdminPanelData() {
-            await fetchCloudData();
-            
-            // Render podanych aplikacji
-            const appsList = document.getElementById('admin-apps-list');
-            appsList.innerHTML = "";
-            if(cloudData.applications.length === 0) {
-                appsList.innerHTML = "<p style='color: var(--text-muted);'>Brak aktywnych podań w chmurze.</p>";
-            } else {
-                cloudData.applications.forEach((app, index) => {
-                    const item = document.createElement('div');
-                    item.className = "data-card";
-                    item.innerHTML = `
-                        <div style="display:flex; justify-content:space-between;">
-                            <span class="data-badge badge-pass">ZDAŁ REKRUTACJĘ: ${app.score}%</span>
-                            <span style="font-size:0.85rem; color:var(--text-muted);">${app.date}</span>
-                        </div>
-                        <h4 style="color:#fff; font-size:1.2rem; margin-bottom:10px;">👤 ${app.nick} &rarr; <span style="color:var(--accent);">${app.rank}</span></h4>
-                        <p style="margin-bottom:5px;"><strong>Wiek:</strong> ${app.age} lat | <strong>Mikrofon:</strong> ${app.mic}</p>
-                        <p style="color:#ced4da; background: rgba(0,0,0,0.2); padding: 10px; border-radius:6px; margin-top:10px;"><em>${app.about}</em></p>
-                        <button onclick="removeApplication(${index})" style="background:var(--danger); border:none; color:white; padding:5px 10px; border-radius:4px; margin-top:10px; cursor:pointer;">Usuń podanie</button>
-                    `;
-                    appsList.appendChild(item);
-                });
-            }
-
-            // Render listy zablokowanych
-            const bansList = document.getElementById('admin-bans-list');
-            bansList.innerHTML = "";
-            if(cloudData.bans.length === 0) {
-                bansList.innerHTML = "<p style='color: var(--text-muted);'>Brak zablokowanych osób.</p>";
-            } else {
-                cloudData.bans.forEach((bannedNick, index) => {
-                    const item = document.createElement('div');
-                    item.style = "background: var(--bg-card); padding:15px; border-radius:6px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; border-left: 4px solid var(--danger);";
-                    item.innerHTML = `
-                        <span>🛑 <strong>${bannedNick}</strong> (Zablokowany automatycznie za brak wiedzy)</span>
-                        <button onclick="unbanPlayer(${index})" style="background:var(--success); border:none; color:white; padding:6px 12px; border-radius:4px; cursor:pointer; font-weight:bold;">Odblokuj kandydata</button>
-                    `;
-                    bansList.appendChild(item);
-                });
-            }
-        }
-
-        async function removeApplication(index) {
-            if(confirm("Czy na pewno chcesz bezpowrotnie usunąć to podanie z chmury?")) {
-                cloudData.applications.splice(index, 1);
-                await saveCloudData();
-                loadAdminPanelData();
-            }
-        }
-
-        async function unbanPlayer(index) {
-            if(confirm("Czy chcesz zdjąć blokadę rekrutacyjną z tego gracza?")) {
-                cloudData.bans.splice(index, 1);
-                await saveCloudData();
-                loadAdminPanelData();
+        function openAI() {
+            let userMsg = prompt("Kaczkowa AI wita! Zadaj mi pytanie:");
+            if (userMsg) {
+                // Prosta symulacja odpowiedzi bota
+                alert("🦆 Kaczkowa AI odpowiada:\n\nPrzeanalizowałem Twoje pytanie: \"" + userMsg + "\".\n\nOdpowiedź: Jako kaczka AI powiem krótko - wbijaj na kanał Kaczkowo, bo tam dzieje się prawdziwy internetowy survival i mnóstwo śmiechu! Kwak!");
             }
         }
     </script>
