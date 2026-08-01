@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaczkowo - Oficjalna Strona</title>
-    <!-- Fonty z Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Ikony z FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -26,9 +24,10 @@
             background: linear-gradient(180deg, #ffde00 0%, #ffaa00 100%);
             min-height: 100vh;
             color: var(--text-light);
+            overflow-x: hidden;
         }
 
-        /* --- NAWIGACJA (GÓRA) --- */
+        /* --- NAWIGACJA --- */
         .navbar {
             background-color: var(--bg-dark);
             padding: 15px 40px;
@@ -36,6 +35,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo-nav {
@@ -45,6 +47,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -65,7 +68,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none;
         }
 
         .nav-btn:hover {
@@ -86,7 +88,22 @@
             font-size: 14px;
         }
 
-        /* --- SEKCJA GŁÓWNA (HERO) --- */
+        /* --- ZARZĄDZANIE WIDOKAMI (ZAKŁADKI) --- */
+        .view-section {
+            display: none; /* Domyślnie ukryte */
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .view-section.active-view {
+            display: block; /* Pokazuje aktywną zakładkę */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- WIDOK 1: STRONA GŁÓWNA --- */
         .hero {
             text-align: center;
             padding: 50px 20px 30px;
@@ -105,11 +122,18 @@
             font-size: 110px;
             margin: 0;
             color: var(--accent);
-            /* Efekt pogrubienia obramowania i cienia jak na zdjęciu */
             -webkit-text-stroke: 4px var(--bg-dark);
             text-shadow: 0px 10px 0px var(--bg-dark);
             letter-spacing: 5px;
             line-height: 1.1;
+        }
+
+        .siema-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
         .siema-badge {
@@ -121,21 +145,8 @@
             border-radius: 30px;
             display: inline-block;
             margin-top: -15px;
-            position: relative;
-            z-index: 2;
             letter-spacing: 2px;
         }
-        
-        /* Dekoracyjne paski obok SIEMA */
-        .siema-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .lines { font-size: 24px; font-weight: bold; color: var(--bg-dark); }
 
         .hero p {
             color: var(--text-dark);
@@ -146,7 +157,6 @@
             line-height: 1.5;
         }
 
-        /* --- KARTY --- */
         .cards-container {
             max-width: 1200px;
             margin: 40px auto;
@@ -210,6 +220,8 @@
             text-align: center;
             text-decoration: none;
             display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .action-btn:hover {
@@ -217,7 +229,6 @@
             transform: translateY(-2px);
         }
 
-        /* --- BANER DOLNY --- */
         .bottom-banner {
             background: var(--bg-card);
             max-width: 1160px;
@@ -230,34 +241,165 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .banner-left {
+        .banner-left { display: flex; align-items: center; gap: 20px; }
+        .banner-ducks { font-size: 50px; }
+        .banner-text h2 { color: var(--accent); margin: 0 0 5px 0; font-size: 24px; }
+        .banner-text p { margin: 0; color: #d1d1d1; font-size: 16px; }
+        .subscribe-btn { width: auto; padding: 15px 30px; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+
+
+        /* --- WIDOK 2: PLAN NAGRYWEK --- */
+        .plan-container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .password-screen h2, .schedule-screen h2 {
+            color: var(--accent);
+            font-family: 'Lilita One', cursive;
+            font-size: 40px;
+            margin-top: 0;
+        }
+
+        .password-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .password-box input {
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+            background: var(--bg-dark);
+            color: white;
+            font-size: 16px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .schedule-screen {
+            display: none; /* Ukryte do momentu podania hasła */
+            text-align: left;
+        }
+
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .schedule-list li {
+            background: var(--bg-dark);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent);
+            font-size: 18px;
+        }
+
+
+        /* --- WIDOK 3: AI KACZKOWO (CZAT) --- */
+        .ai-container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .ai-header {
+            background: var(--bg-dark);
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
+            border-bottom: 2px solid #333;
         }
 
-        .banner-ducks {
-            font-size: 50px;
+        .ai-header h2 { margin: 0; color: var(--accent); font-family: 'Lilita One', cursive;}
+
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #1a1a1a;
         }
 
-        .banner-text h2 {
-            color: var(--accent);
-            margin: 0 0 5px 0;
-            font-size: 24px;
+        .msg {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 15px;
+            line-height: 1.4;
         }
 
-        .banner-text p {
-            margin: 0;
-            color: #d1d1d1;
+        .msg.bot {
+            background: var(--bg-dark);
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            border: 1px solid #333;
+        }
+
+        .msg.user {
+            background: var(--accent);
+            color: var(--text-dark);
+            font-weight: 600;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 15px;
+            background: var(--bg-dark);
+            gap: 10px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            background: #2a2a2a;
+            color: white;
             font-size: 16px;
+        }
+
+        .chat-input-area button {
+            background: var(--accent);
+            border: none;
+            width: 50px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-dark);
+            transition: 0.3s;
         }
         
-        .subscribe-btn {
-            padding: 15px 30px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .chat-input-area button:hover {
+            background: var(--accent-hover);
         }
 
     </style>
@@ -266,97 +408,216 @@
 
     <!-- NAWIGACJA -->
     <nav class="navbar">
-        <div class="logo-nav">🦆 KACZKOWO</div>
+        <div class="logo-nav" onclick="switchTab('home')">🦆 KACZKOWO</div>
         <div class="nav-links">
-            <a href="#" class="nav-btn active"><i class="fas fa-home"></i> GŁÓWNA</a>
-            <button onclick="checkPassword()" class="nav-btn"><i class="far fa-calendar-alt"></i> PLAN NAGRYWEK</button>
-            <button onclick="openAI()" class="nav-btn"><i class="fas fa-robot"></i> AI KACZKOWO</button>
+            <button id="nav-home" onclick="switchTab('home')" class="nav-btn active"><i class="fas fa-home"></i> GŁÓWNA</button>
+            <button id="nav-plan" onclick="switchTab('plan')" class="nav-btn"><i class="far fa-calendar-alt"></i> PLAN NAGRYWEK</button>
+            <button id="nav-ai" onclick="switchTab('ai')" class="nav-btn"><i class="fas fa-robot"></i> AI KACZKOWO</button>
         </div>
         <div class="welcome-badge">Witaj w Kaczkowie! 🦆</div>
     </nav>
 
-    <!-- GŁÓWNA SEKCJA -->
-    <header class="hero">
-        <div class="main-duck-icon">🦆😎</div> <!-- Emoji jako zastępstwo dla grafiki ze zdjęcia -->
-        <h1>KACZKOWO</h1>
-        <div class="siema-wrapper">
-            <span class="lines">≡</span>
-            <div class="siema-badge">SIEMA!</div>
-            <span class="lines">≡</span>
-        </div>
-        <p>Witaj w Kaczkowie – miejscu pełnym dobrej energii, śmiechu i świetnych ludzi!<br>Tutaj każda kaczka jest wyjątkowa!</p>
-    </header>
+    <!-- ZAKŁADKA 1: GŁÓWNA -->
+    <div id="view-home" class="view-section active-view">
+        <header class="hero">
+            <div class="main-duck-icon">🦆😎</div>
+            <h1>KACZKOWO</h1>
+            <div class="siema-wrapper">
+                <span style="font-size: 24px; font-weight: bold; color: var(--bg-dark);">≡</span>
+                <div class="siema-badge">SIEMA!</div>
+                <span style="font-size: 24px; font-weight: bold; color: var(--bg-dark);">≡</span>
+            </div>
+            <p>Witaj w Kaczkowie – miejscu pełnym dobrej energii, śmiechu i świetnych ludzi!<br>Tutaj każda kaczka jest wyjątkowa!</p>
+        </header>
 
-    <!-- KARTY INFO -->
-    <section class="cards-container">
-        <!-- Karta 1 -->
-        <div class="card">
-            <div>
-                <div class="card-header">
-                    <div class="card-icon">🦆</div>
-                    <h2>O KACZKOWIE</h2>
+        <section class="cards-container">
+            <!-- Karta 1 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">🦆</div>
+                        <h2>O KACZKOWIE</h2>
+                    </div>
+                    <p>Kaczkowo to jest świat, który pokazuje survival na naszym internecie, który po prostu powoduje uśmiech na twarzach! Zapraszamy do oglądania na naszym kanale.</p>
                 </div>
-                <p>Kaczkowo to jest świat, który pokazuje survival na naszym internecie, który po prostu powoduje uśmiech na twarzach! Zapraszamy do oglądania na naszym kanale.</p>
+                <a href="https://youtube.com/@frako_-kaczkowo?si=GFPnNCJqnxUg4rm2" target="_blank" class="action-btn">DOŁĄCZ DO KACZEK! ></a>
             </div>
-            <a href="https://youtube.com/@frako_-kaczkowo?si=GFPnNCJqnxUg4rm2" target="_blank" class="action-btn">DOŁĄCZ DO KACZEK! ></a>
-        </div>
 
-        <!-- Karta 2 -->
-        <div class="card">
-            <div>
-                <div class="card-header">
-                    <div class="card-icon"><i class="far fa-calendar-alt" style="color: white;"></i></div>
-                    <h2>PLAN NAGRYWEK</h2>
+            <!-- Karta 2 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon"><i class="far fa-calendar-alt" style="color: white;"></i></div>
+                        <h2>PLAN NAGRYWEK</h2>
+                    </div>
+                    <p>Sprawdź, kiedy lecą nowe filmy z Kaczkowa i innymi! Nie przegap żadnego materiału (Moduł na hasło).</p>
                 </div>
-                <p>Sprawdź, kiedy lecą nowe filmy z Kaczkowa i innymi! Nie przegap żadnego materiału (Moduł na hasło).</p>
+                <button onclick="switchTab('plan')" class="action-btn">ZOBACZ PLAN ></button>
             </div>
-            <button onclick="checkPassword()" class="action-btn">ZOBACZ PLAN ></button>
-        </div>
 
-        <!-- Karta 3 -->
-        <div class="card">
-            <div>
-                <div class="card-header">
-                    <div class="card-icon"><i class="fas fa-robot" style="color: white;"></i></div>
-                    <h2>AI KACZKOWO</h2>
+            <!-- Karta 3 -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-robot" style="color: white;"></i></div>
+                        <h2>AI KACZKOWO</h2>
+                    </div>
+                    <p>Porozmawiaj z naszym AI! Zadaj pytanie, przenieś się na zakładkę i otrzymaj odpowiedź od wirtualnej kaczki!</p>
                 </div>
-                <p>Porozmawiaj z naszym AI! Zadaj pytanie na podstawowe tematy z Kaczkowa i otrzymaj szybką odpowiedź!</p>
+                <button onclick="switchTab('ai')" class="action-btn">POROZMAWIAJ ></button>
             </div>
-            <button onclick="openAI()" class="action-btn">POROZMAWIAJ ></button>
-        </div>
-    </section>
+        </section>
 
-    <!-- DOLNY BANER YOUTUBE -->
-    <section class="bottom-banner">
-        <div class="banner-left">
-            <div class="banner-ducks">👑🦆 🧢🦆 😎🦆</div>
-            <div class="banner-text">
-                <h2>ZOSTAŃ KACZKĄ JUŻ DZIŚ!</h2>
-                <p>Subskrybuj, oglądaj i baw się razem z nami w Kaczkowie!</p>
+        <section class="bottom-banner">
+            <div class="banner-left">
+                <div class="banner-ducks">👑🦆 🧢🦆 😎🦆</div>
+                <div class="banner-text">
+                    <h2>ZOSTAŃ KACZKĄ JUŻ DZIŚ!</h2>
+                    <p>Subskrybuj, oglądaj i baw się razem z nami w Kaczkowie!</p>
+                </div>
+            </div>
+            <a href="https://youtube.com/@frako_-kaczkowo?si=GFPnNCJqnxUg4rm2" target="_blank" class="action-btn subscribe-btn">
+                SUBSKRYBUJ <i class="fas fa-bell"></i>
+            </a>
+        </section>
+    </div>
+
+    <!-- ZAKŁADKA 2: PLAN NAGRYWEK -->
+    <div id="view-plan" class="view-section">
+        <div class="plan-container">
+            <!-- Ekran logowania -->
+            <div id="password-screen" class="password-screen">
+                <div style="font-size: 60px; margin-bottom: 20px;">🔒</div>
+                <h2>BLOKADA DOSTĘPU</h2>
+                <p style="color: #d1d1d1;">Plan nagrywek to ściśle tajne informacje. Podaj hasło autoryzacyjne.</p>
+                
+                <div class="password-box">
+                    <input type="password" id="plan-password" placeholder="Wpisz hasło...">
+                    <button onclick="unlockPlan()" class="action-btn" style="width: 200px;">ODBLOKUJ</button>
+                    <div id="password-error" class="error-msg">Błędne hasło! Spróbuj ponownie.</div>
+                </div>
+            </div>
+
+            <!-- Ekran właściwego planu (odblokowany) -->
+            <div id="schedule-screen" class="schedule-screen">
+                <h2>📅 PLAN NAGRYWEK</h2>
+                <p style="color: #d1d1d1;">Oto wygenerowany grafik dla Kaczkowa. Nie przegap premier!</p>
+                <ul class="schedule-list">
+                    <li><strong>Poniedziałek (16:00):</strong> Kaczkowy Survival - Odcinek 1</li>
+                    <li><strong>Środa (17:30):</strong> Budujemy nową bazę!</li>
+                    <li><strong>Piątek (18:00):</strong> Wielki strumyk / Kaczkowo Live</li>
+                    <li><strong>Niedziela (12:00):</strong> Q&A z ekipą</li>
+                </ul>
             </div>
         </div>
-        <a href="https://youtube.com/@frako_-kaczkowo?si=GFPnNCJqnxUg4rm2" target="_blank" class="action-btn subscribe-btn">
-            SUBSKRYBUJ <i class="fas fa-bell"></i>
-        </a>
-    </section>
+    </div>
 
-    <!-- SKRYPTY LOGIKI (Plan nagrywek, AI) -->
+    <!-- ZAKŁADKA 3: AI KACZKOWO -->
+    <div id="view-ai" class="view-section">
+        <div class="ai-container">
+            <div class="ai-header">
+                <div style="font-size: 35px;">🤖🦆</div>
+                <div>
+                    <h2>KACZKOWA AI</h2>
+                    <span style="font-size: 12px; color: #aaa;">Status: Gotowy do rozmowy (Kwak!)</span>
+                </div>
+            </div>
+            
+            <div id="chat-box" class="chat-box">
+                <div class="msg bot">Siema! Jestem Kaczkowa AI. Możesz mnie zapytać o kanał, plan nagrywek, albo po prostu się przywitać! O czym pogadamy?</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Napisz wiadomość..." onkeypress="handleEnter(event)">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIKA STRONY (JS) -->
     <script>
-        function checkPassword() {
-            let pass = prompt("Podaj hasło dostępu do Planu Nagrywek:");
-            if (pass === "Mateusz05050") {
-                alert("Hasło poprawne! ✅\n\nTutaj w przyszłości pojawi się wygenerowany Plan Nagrywek:\n1. Poniedziałek - Survival odcinek 1\n2. Środa - Budowa bazy\n3. Piątek - Kaczkowo Live");
-            } else if (pass !== null) {
-                alert("Błędne hasło! ❌ Dostęp do Planu Nagrywek zablokowany.");
+        // --- PRZEŁĄCZANIE ZAKŁADEK ---
+        function switchTab(tabName) {
+            // Ukryj wszystkie widoki
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
+            // Odznacz wszystkie przyciski
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            
+            // Pokaż wybrany widok i zaznacz przycisk w menu
+            document.getElementById('view-' + tabName).classList.add('active-view');
+            if(document.getElementById('nav-' + tabName)) {
+                document.getElementById('nav-' + tabName).classList.add('active');
+            }
+            
+            // Skroluj na górę
+            window.scrollTo(0,0);
+        }
+
+        // --- SYSTEM HASŁA DO PLANU ---
+        function unlockPlan() {
+            const passInput = document.getElementById('plan-password').value;
+            const errorMsg = document.getElementById('password-error');
+            const passScreen = document.getElementById('password-screen');
+            const schedScreen = document.getElementById('schedule-screen');
+
+            if(passInput === "Mateusz05050") {
+                passScreen.style.display = "none";
+                schedScreen.style.display = "block";
+            } else {
+                errorMsg.style.display = "block";
             }
         }
 
-        function openAI() {
-            let userMsg = prompt("Kaczkowa AI wita! Zadaj mi pytanie:");
-            if (userMsg) {
-                // Prosta symulacja odpowiedzi bota
-                alert("🦆 Kaczkowa AI odpowiada:\n\nPrzeanalizowałem Twoje pytanie: \"" + userMsg + "\".\n\nOdpowiedź: Jako kaczka AI powiem krótko - wbijaj na kanał Kaczkowo, bo tam dzieje się prawdziwy internetowy survival i mnóstwo śmiechu! Kwak!");
+        // --- CHATBOT AI ---
+        function handleEnter(e) {
+            if(e.key === 'Enter') {
+                sendMessage();
             }
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById('chat-input');
+            const message = inputField.value.trim();
+            if(message === "") return;
+
+            addMessage(message, 'user');
+            inputField.value = "";
+
+            // Symulacja myślenia AI i odpowiedź
+            setTimeout(() => {
+                generateAIResponse(message.toLowerCase());
+            }, 600); // Małe opóźnienie, żeby wyglądało naturalnie
+        }
+
+        function addMessage(text, sender) {
+            const chatBox = document.getElementById('chat-box');
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('msg', sender);
+            msgDiv.innerText = text;
+            chatBox.appendChild(msgDiv);
+            
+            // Skroluj czat w dół po nowej wiadomości
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function generateAIResponse(userInput) {
+            let response = "";
+
+            // Prosta logika AI Kaczkowa
+            if(userInput.includes("siema") || userInput.includes("cześć") || userInput.includes("hej")) {
+                response = "Siema kaczko! Jak tam leci? Zostawiłeś już suba na naszym kanale? 😎";
+            } 
+            else if(userInput.includes("plan") || userInput.includes("kiedy film")) {
+                response = "Żeby zobaczyć plan nagrywek, musisz wejść w zakładkę 'PLAN NAGRYWEK' na górze strony i podać tajne hasło! Kwak!";
+            }
+            else if(userInput.includes("kaczkowo") || userInput.includes("kanał")) {
+                response = "Kaczkowo to najlepszy internetowy survival! Mnóstwo śmiechu i świetnych akcji. Cieszę się, że z nami jesteś!";
+            }
+            else {
+                response = "Kwak kwak! Nie do końca zrozumiałem, ale jako kaczka AI powiem Ci jedno: wbijaj na nowy odcinek!";
+            }
+
+            addMessage(response, 'bot');
         }
     </script>
 </body>
